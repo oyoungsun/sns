@@ -1,0 +1,25 @@
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        show-sql: true
+        ddl-auto: create
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/sns?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true # ?? ??? ?? schema ? ?? ?? ??
+    username: root
+    password: #
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    level:
+      root: info
+      com.zaxxer.hikari.HikariConfig: debug
+      org.hibernate.SQL: trace
+      hibernate.type.descriptor.sql.BasicBinder: trace
+      org.hibernate.type.descriptor.sql: trace
+#
+jwt:
+  secret-key: fast-campus.simple_sns_2022_secret_key
+  # 30 days
+  token.expired-time-ms: 25920000
