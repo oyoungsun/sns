@@ -16,13 +16,15 @@ import java.time.Instant;
 @Setter
 @Getter
 @Entity
-@Table(name = "post")
-@SQLDelete(sql = "UPDATE \"post\" SET removed_at = NOW() WHERE id=?")
-@Where(clause = "removed_at is NULL")
+@Table(name = "\"user\"")
+@SQLDelete(sql = "UPDATE \"user\" SET removed_at = NOW() WHERE id=?")
+@Where(clause = "deleted_at is NULL")
 @NoArgsConstructor
 public class UserEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "user_name")
     private String userName;
 
@@ -55,11 +57,10 @@ public class UserEntity {
     //DTO를 위한 USER class
     //DB에 저장하기 위한 USER ENTITY
     //둘은 혼용하지 않는다. 서비스에서는 DTO만 사용
-    public static UserEntity of(String username, String password) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserName(username);
-        userEntity.setPassword(password);
-
-        return userEntity;
+    public static UserEntity of(String userName, String encodedPwd) {
+        UserEntity entity = new UserEntity();
+        entity.setUserName(userName);
+        entity.setPassword(encodedPwd);
+        return entity;
     }
 }

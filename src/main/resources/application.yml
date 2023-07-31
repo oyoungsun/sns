@@ -5,12 +5,12 @@ spring:
     properties:
       hibernate:
         show-sql: true
-        ddl-auto: create
+        ddl-auto: update
         format_sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/sns?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true # ?? ??? ?? schema ? ?? ?? ??
     username: root
-    password: #
+    password: ysun1030
     driver-class-name: com.mysql.cj.jdbc.Driver
     level:
       root: info

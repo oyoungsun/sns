@@ -21,7 +21,9 @@ import java.time.Instant;
 @NoArgsConstructor
 public class PostEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "title")
     private String title;
 
