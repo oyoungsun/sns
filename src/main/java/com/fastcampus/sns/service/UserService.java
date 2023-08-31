@@ -47,12 +47,13 @@ public class  UserService {
     //TODO : implements
     public String login(String username, String password){
         //회원가입 여부 체크
-        UserEntity userEntity = userEntityRepository.findByUserName(username).orElseThrow(()-> new SnsApplicationException(ErrorCode.USER_NOT_FOUND,String.format("%s not founded", username)));
+        UserEntity userEntity = userEntityRepository.findByUserName(username).orElseThrow(()->
+                new SnsApplicationException(ErrorCode.USER_NOT_FOUND,String.format("%s not founded", username)));
 
         //비밀번호 체크
         if(!encoder.matches(password, userEntity.getPassword())){
-            //암호화된 비밀번호로 저장하기 때문에 암호화된 pass와 매치 필요하다
-        //if(!userEntity.getPassword().equals(password)){
+            //암호화된 비밀번호로 저장하기 때문에 암호화된 pass와 일치하는지 검사가 필요하다
+            //== if(!userEntity.getPassword().equals(password)){
             throw new SnsApplicationException(ErrorCode.INVALID_PASSWORD);
         }
 

@@ -65,4 +65,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return this.deletedAt == null;
     }
+    //삭제되는 시점이 ==null이다 : 아직 삭제된적 없다.
+    // -> 이 User는 유효하다
 }
