@@ -36,7 +36,7 @@ class UserServiceTest {
         //중복되지 않음으로, 비었다고 출력
         when(userEntityRepository.findByUserName(username)).thenReturn(Optional.empty());
         when(encoder.encode(password)).thenReturn("encrypt_password");
-        when(userEntityRepository.save(any())).thenReturn(UserEntityFixture.get(username, password));
+        when(userEntityRepository.save(any())).thenReturn(UserEntityFixture.get(username, password, 1));
 
         Assertions.assertDoesNotThrow(()->userService.join(username, password));
     }
@@ -45,11 +45,11 @@ class UserServiceTest {
     void 회원가입시_username_중복() {
         String username = "userName";
         String password = "password";
-        UserEntity fixture = UserEntityFixture.get(username, password);
+        UserEntity fixture = UserEntityFixture.get(username, password, 1);
 
 
         when(userEntityRepository.findByUserName(fixture.getUserName()))
-                .thenReturn(Optional.of(UserEntityFixture.get(fixture.getUserName(), fixture.getPassword())));
+                .thenReturn(Optional.of(UserEntityFixture.get(fixture.getUserName(), fixture.getPassword(), fixture.getId())));
 
         SnsApplicationException exception = Assertions.assertThrows(SnsApplicationException.class,
                 () -> userService.join(fixture.getUserName(), fixture.getPassword()));
@@ -60,7 +60,7 @@ class UserServiceTest {
     void 로그인_정상동작(){
         String username = "userName";
         String password = "password";
-        UserEntity fixture = UserEntityFixture.get(username, password);
+        UserEntity fixture = UserEntityFixture.get(username, password, 1);
 
         when(userEntityRepository.findByUserName(username)).thenReturn(Optional.of(fixture));
         when(encoder.matches(password, fixture.getPassword())).thenReturn(true);
@@ -92,7 +92,7 @@ class UserServiceTest {
         String username = "userName";
         String password = "password";
         String wrongPassword = "wrong";
-        UserEntity fixture = UserEntityFixture.get(username, password);
+        UserEntity fixture = UserEntityFixture.get(username, password, 1);
         //중복되지 않음으로, 비었다고 출력
         when(userEntityRepository.findByUserName(username)).thenReturn(Optional.of(fixture));
 
